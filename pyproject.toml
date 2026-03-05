@@ -34,5 +34,9 @@ dev = [
 [project.scripts]
 specdrift = "specdrift.cli:main"
 
+[tool.setuptools.packages.find]
+include = ["specdrift*"]
+exclude = ["dashboard*", "tests*"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
