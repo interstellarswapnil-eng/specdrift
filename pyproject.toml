@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "specdrift"
+version = "0.1.0"
+description = "Know when your product drifts before your stakeholders do."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "Swapnil Khalekar" }]
+keywords = ["product-management", "prd", "jira", "github", "drift-detection"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+dependencies = [
+  "PyYAML>=6.0.1",
+]
+
+[project.optional-dependencies]
+engine = [
+  "google-api-python-client>=2.0.0",
+  "jira>=3.8.0",
+  "PyGithub>=2.3.0",
+]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[project.scripts]
+specdrift = "specdrift.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

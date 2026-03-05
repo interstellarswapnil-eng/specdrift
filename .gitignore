@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+.pytest_cache/
+
+# Local config / state
+specdrift.yaml
+specdrift.db
+*.sqlite
+
+# Node / dashboard
+node_modules/
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.vite/
+
+# OS
+.DS_Store
