@@ -1,0 +1,20 @@
+project:
+  name: "My Product Name"
+  prd_doc_id: "YOUR_GOOGLE_DOC_ID"
+  jira_project_key: "PROJ"
+  github_repo: "interstellarswapnil-eng/specdrift"
+
+scope:
+  modules:
+    - name: "Authentication"
+      prd_section: "3.1"
+      file_patterns:
+        - "src/auth/**"
+        - "src/login/**"
+
+alerts:
+  slack_webhook_url: "${SLACK_WEBHOOK_URL}"
+  notify_on: ["high", "medium"]
+
+sync:
+  schedule: "0 9 * * 1-5"  # 9am Mon-Fri

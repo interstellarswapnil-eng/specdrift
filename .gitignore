@@ -8,9 +8,11 @@ build/
 .pytest_cache/
 
 # Local config / state
-specdrift.yaml
 specdrift.db
 *.sqlite
+
+# Allow committing a sample specdrift.yaml
+!specdrift.yaml
 
 # Node / dashboard
 node_modules/

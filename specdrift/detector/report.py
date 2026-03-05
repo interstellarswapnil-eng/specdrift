@@ -18,7 +18,7 @@ def generate_drift_report(config: SpecDriftConfig) -> dict[str, Any]:
 
 	return {
 		"generated_at": datetime.now(timezone.utc).isoformat(),
-		"prd_doc_id": config.prd_doc_id,
+		"prd_doc_id": config.project.prd_doc_id,
 		"sections": [],
 		"summary": {"total_sections": 0, "drifted": 0, "at_risk": 0, "healthy": 0},
 	}
