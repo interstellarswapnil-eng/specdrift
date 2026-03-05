@@ -389,20 +389,7 @@ jobs:
 
 ---
 
-## 12. OpenClaw Integration
-
-SpecDrift will be built and maintained using the OpenClaw AI agent setup:
-
-- **OpenClaw runs `specdrift sync`** on schedule via Telegram command or cron
-- **GitHub CLI** handles repo operations, PR creation, issue tracking
-- **GitHub Actions** handles automated deploys and PR checks
-- OpenClaw can be prompted to: add a new scope module, update the PRD template, or generate a drift summary report
-
-This makes SpecDrift itself a showcase of what AI-assisted product tooling looks like end-to-end.
-
----
-
-## 13. Open Source Positioning
+## 12. Open Source Positioning
 
 **Repo name:** `specdrift`  
 **GitHub org:** `interstellarswapnil-eng`  
@@ -424,7 +411,7 @@ This makes SpecDrift itself a showcase of what AI-assisted product tooling looks
 
 ---
 
-## 14. Success Metrics (for the open source project)
+## 13. Success Metrics (for the open source project)
 
 | Metric | 30-day target | 90-day target |
 |---|---|---|
@@ -436,4 +423,4 @@ This makes SpecDrift itself a showcase of what AI-assisted product tooling looks
 
 ---
 
-*Built with OpenClaw · Deployed on GitHub Pages · Open Source under MIT License*
+*Deployed on GitHub Pages · Open Source under MIT License*
