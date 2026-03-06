@@ -172,6 +172,34 @@ def sync(ctx: click.Context, db_path: Path) -> None:
 		store.close()
 
 
+@cli.command(help="Check a specific GitHub PR for missing PRD/Jira references and comment if needed.")
+@click.option(
+	"--pr",
+	"pr_number",
+	type=int,
+	required=True,
+	help="Pull request number",
+)
+@click.pass_context
+def check_pr(ctx: click.Context, pr_number: int) -> None:
+	config_path: Path = ctx.obj["config_path"]
+	config = load_config(config_path)
+
+	from specdrift.gh_linker.pr_bot import check_pr_and_maybe_comment
+
+	res = check_pr_and_maybe_comment(
+		repo=config.project.github_repo,
+		pr_number=pr_number,
+		scope_config=config.raw,
+		jira_project_key=config.project.jira_project_key,
+	)
+
+	if res.should_comment:
+		click.echo(f"Commented on PR #{pr_number} (sections: {', '.join(res.matched_prd_sections) or '-'})")
+	else:
+		click.echo(f"No comment needed for PR #{pr_number}")
+
+
 @cli.command(help="Print the most recently saved drift report from SQLite without re-syncing.")
 @click.option(
 	"--db",

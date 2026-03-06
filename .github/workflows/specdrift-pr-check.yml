@@ -18,9 +18,10 @@ jobs:
 
       - name: Install
         run: |
-          pip install -e .
+          pip install -e ".[engine]"
 
       - name: Check PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "TODO: implement specdrift check-pr" 
-          # specdrift check-pr --pr ${{ github.event.number }}
+          specdrift check-pr --pr ${{ github.event.number }}
