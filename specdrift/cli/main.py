@@ -130,6 +130,17 @@ def sync(ctx: click.Context, db_path: Path) -> None:
 		scope_config=config.raw,
 	)
 
+	# Fire alerts (best-effort) after drift detection.
+	try:
+		from specdrift.alerts.slack import send_slack_alerts
+
+		sent = send_slack_alerts(report, config)
+		if sent:
+			click.echo(f"\nSent {sent} Slack alert(s).")
+	except Exception as e:
+		# Alerts should never break sync.
+		click.echo(f"\nSlack alerting failed (continuing): {e}")
+
 	store = SQLiteStateStore(str(db_path))
 	try:
 		store.save_sections(sections_obj)
