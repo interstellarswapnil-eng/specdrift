@@ -30,7 +30,7 @@ def test_init_writes_specdrift_yaml_and_workflows(tmp_path: Path, monkeypatch):
 				"",  # skip slack webhook
 			]
 		)
-		res = runner.invoke(init, input=inputs)
+		res = runner.invoke(init, input=inputs + "\n")
 		assert res.exit_code == 0, res.output
 
 		assert Path("specdrift.yaml").exists()
