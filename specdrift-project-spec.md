@@ -1,9 +1,9 @@
 # SpecDrift — Project Specification
 ### Know when your product drifts before your stakeholders do.
 
-**Version:** 0.1 — Initial Spec  
+**Version:** 0.2 — Updated Spec  
 **Author:** Swapnil Khalekar  
-**Status:** Pre-build · Open Source
+**Status:** Phase 4 In Progress · Open Source
 
 ---
 
@@ -108,7 +108,7 @@ The SpecDrift PRD Template will be provided as:
 │  ┌──────────────┐   ┌──────────────┐   ┌─────────────┐  │
 │  │  PRD Parser  │   │ Jira Linker  │   │  GH Linker  │  │
 │  │ (Google Docs)│   │  (REST API)  │   │  (REST API) │  │
-│  └──────┬───────┘   └──────┬──────┘   └──────┬──────┘  │
+│  └──────┬───────┘   └──────┬───────┘   └──────┬──────┘  │
 │         │                  │                  │          │
 │         └──────────────────┼──────────────────┘          │
 │                            ▼                             │
@@ -355,37 +355,58 @@ jobs:
 
 ## 11. Build Phases
 
-### Phase 1 — Foundation (Week 1–2)
-- [ ] Repo scaffold: `specdrift/` Python package + `dashboard/` React app
-- [ ] `specdrift.yaml` config loader
-- [ ] Google Docs API integration + section parser
-- [ ] SQLite state store
-- [ ] Basic `specdrift sync` CLI command
-- [ ] Unit tests for parser
+### Phase 1 — Foundation ✅ Complete
+- [x] Repo scaffold: `specdrift/` Python package + `dashboard/` React app
+- [x] `specdrift.yaml` config loader
+- [x] Google Docs API integration + section parser
+- [x] SQLite state store
+- [x] Basic `specdrift sync` CLI command
+- [x] Unit tests for parser
 
-### Phase 2 — Integrations (Week 3)
-- [ ] Jira REST API integration + story fetcher
-- [ ] GitHub API integration + PR fetcher
-- [ ] Scope matching (file patterns → PRD sections)
-- [ ] Full drift detection engine (all 3 signals)
-- [ ] JSON report output
+### Phase 2 — Integrations ✅ Complete
+- [x] Jira REST API integration + story fetcher
+- [x] GitHub API integration + PR fetcher
+- [x] Scope matching (file patterns → PRD sections)
+- [x] Full drift detection engine (all 3 signals)
+- [x] JSON report output
 
-### Phase 3 — Dashboard (Week 4–5)
-- [ ] React app scaffold (Vite)
-- [ ] PRD tree component (React Flow)
-- [ ] Section detail panel
-- [ ] Drift feed
-- [ ] Colour-coded health indicators
-- [ ] GitHub Pages deploy via GitHub Actions
+### Phase 3 — Dashboard ✅ Complete
+- [x] React app scaffold (Vite)
+- [x] PRD tree component (React Flow)
+- [x] Section detail panel
+- [x] Drift feed
+- [x] Colour-coded health indicators
+- [x] GitHub Pages deploy via GitHub Actions
 
-### Phase 4 — Polish + Launch (Week 6)
+### Phase 4 — Polish + Launch (Current)
 - [ ] Slack alert integration
 - [ ] `specdrift init` interactive setup wizard
 - [ ] PR comment bot (unlinked PR warning)
 - [ ] README, CONTRIBUTING.md, CODE_OF_CONDUCT.md
 - [ ] SpecDrift PRD Template (Google Docs + Markdown)
+- [ ] End-to-end live test with real credentials
 - [ ] Product Hunt launch post
 - [ ] Post on r/ProductManagement, LinkedIn, PM Slack communities
+
+### Phase 5 — AI-Powered Semantic Drift Detection (v2 · Post-Launch)
+
+> This phase is intentionally out of scope for v1. It will be the headline feature of v2.
+
+**The problem with v1 drift detection:** SpecDrift v1 is purely mechanical — it compares timestamps and labels. It knows *when* things changed and *whether* links exist, but it has no understanding of *what* the PRD says or *what* the code does.
+
+**What Phase 5 adds:** Claude API integration for semantic drift detection. Instead of just checking timestamps, SpecDrift will read the actual content of a PRD section and the actual diff of a PR and reason about alignment:
+
+- *Does this PR implement, partially implement, contradict, or ignore this requirement?*
+- *Did this PRD change in a meaningful way or was it just a typo fix?*
+- *Does this Jira ticket description actually map to the right PRD section?*
+
+**Key capabilities:**
+- Semantic PR-to-requirement matching (no manual `PRD-Section:` tags needed)
+- Intelligent change significance scoring (major requirement change vs. minor wording edit)
+- Auto-suggested links between PRD sections and existing tickets
+- Natural language drift summaries: *"Section 3.1 has drifted significantly — the PRD now requires OAuth but 3 linked PRs only implement basic auth"*
+
+**Why this is v2 and not v1:** v1 needs to prove the core workflow and build an audience first. AI-powered analysis adds API cost and complexity that could slow adoption. Ship the mechanical version, get users, then delight them with intelligence.
 
 ---
 
