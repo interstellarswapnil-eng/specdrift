@@ -286,3 +286,9 @@ def report(db_path: Path) -> None:
 		_print_drift_report(report_obj)
 	finally:
 		store.close()
+
+
+# Register subcommands implemented in separate modules
+from specdrift.cli.init import init as init_cmd  # noqa: E402
+
+cli.add_command(init_cmd)
