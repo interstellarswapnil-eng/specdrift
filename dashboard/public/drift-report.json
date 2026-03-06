@@ -1,50 +1,108 @@
 {
-  "generated_at": "2026-03-06T00:00:00Z",
-  "prd_doc_id": "sample",
+  "generated_at": "2026-03-06T06:15:00Z",
+  "prd_doc_id": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
   "sections": [
     {
       "id": "1",
       "title": "Overview",
+      "level": 2,
+      "status": "in-progress",
+      "changed_at": "2026-02-26T09:05:12Z",
+      "linked_jira_ids": ["PROJ-10"],
+      "linked_prs": ["#101"],
+      "drift_status": "healthy",
       "overall_health": "green",
-      "changed_at": "2026-03-01T10:00:00Z",
-      "linked_prs": ["#12"],
-      "linked_jira_ids": ["PROJ-101"],
       "drift_signals": []
     },
     {
-      "id": "3",
-      "title": "Functional Requirements",
+      "id": "2",
+      "title": "Goals & Success Metrics",
+      "level": 2,
+      "status": "in-progress",
+      "changed_at": "2026-03-01T14:22:40Z",
+      "linked_jira_ids": ["PROJ-21", "PROJ-22"],
+      "linked_prs": ["#108"],
+      "drift_status": "at_risk",
       "overall_health": "yellow",
-      "changed_at": "2026-03-03T11:00:00Z",
       "drift_signals": [
         {
           "type": "tickets_done_prd_not_closed",
           "severity": "medium",
-          "detail": "Stories are Done but this PRD section is still marked in-progress.",
-          "linked_jira": ["PROJ-220"]
+          "detected_at": "2026-03-05T10:12:00Z",
+          "detail": "Linked stories are Done, but this PRD section is still marked in-progress.",
+          "linked_jira": ["PROJ-21", "PROJ-22"]
         }
       ]
     },
     {
+      "id": "3",
+      "title": "Functional Requirements",
+      "level": 2,
+      "status": "in-progress",
+      "changed_at": "2026-03-02T08:10:00Z",
+      "linked_jira_ids": ["PROJ-30"],
+      "linked_prs": [],
+      "drift_status": "at_risk",
+      "overall_health": "yellow",
+      "drift_signals": []
+    },
+    {
       "id": "3.1",
       "title": "Authentication",
+      "level": 3,
+      "status": "in-progress",
+      "changed_at": "2026-03-04T17:45:30Z",
+      "linked_jira_ids": ["PROJ-31", "PROJ-32"],
+      "linked_prs": ["#120"],
+      "drift_status": "drifted",
       "overall_health": "red",
-      "changed_at": "2026-03-04T12:00:00Z",
-      "linked_prs": ["#45"],
       "drift_signals": [
         {
           "type": "prd_changed_tickets_stale",
           "severity": "high",
-          "detail": "PRD section updated, but linked Jira stories haven't been updated.",
-          "linked_jira": ["PROJ-101", "PROJ-102"]
+          "detected_at": "2026-03-04T18:02:00Z",
+          "detail": "PRD section updated on 2026-03-04, but linked Jira stories haven't been updated since 2026-02-28.",
+          "linked_jira": ["PROJ-31", "PROJ-32"]
+        }
+      ]
+    },
+    {
+      "id": "3.2",
+      "title": "Payments",
+      "level": 3,
+      "status": "in-progress",
+      "changed_at": "2026-03-03T11:30:10Z",
+      "linked_jira_ids": ["PROJ-41"],
+      "linked_prs": ["#118"],
+      "drift_status": "healthy",
+      "overall_health": "green",
+      "drift_signals": []
+    },
+    {
+      "id": "4",
+      "title": "Non-Functional Requirements",
+      "level": 2,
+      "status": "in-progress",
+      "changed_at": "2026-03-05T09:00:00Z",
+      "linked_jira_ids": [],
+      "linked_prs": [],
+      "drift_status": "drifted",
+      "overall_health": "red",
+      "drift_signals": [
+        {
+          "type": "unlinked_pr_merged",
+          "severity": "high",
+          "detected_at": "2026-03-05T09:05:00Z",
+          "detail": "Merged PR #127 touched scoped modules (src/auth/**, src/payments/**) but contained no Jira/PRD reference in its description.",
+          "linked_prs": ["#127"]
         }
       ]
     }
   ],
   "summary": {
-    "total_sections": 3,
-    "drifted": 1,
-    "at_risk": 1,
-    "healthy": 1
+    "total_sections": 6,
+    "drifted": 2,
+    "at_risk": 2,
+    "healthy": 2
   }
 }
