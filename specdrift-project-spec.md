@@ -1,9 +1,9 @@
 # SpecDrift — Project Specification
 ### Know when your product drifts before your stakeholders do.
 
-**Version:** 0.2 — Dashboard scaffolded + Pages deploy  
+**Version:** 0.1 — Initial Spec  
 **Author:** Swapnil Khalekar  
-**Status:** In progress · Open Source
+**Status:** Pre-build · Open Source
 
 ---
 
@@ -108,7 +108,7 @@ The SpecDrift PRD Template will be provided as:
 │  ┌──────────────┐   ┌──────────────┐   ┌─────────────┐  │
 │  │  PRD Parser  │   │ Jira Linker  │   │  GH Linker  │  │
 │  │ (Google Docs)│   │  (REST API)  │   │  (REST API) │  │
-│  └──────┬───────┘   └──────┬───────┘   └──────┬──────┘  │
+│  └──────┬───────┘   └──────┬──────┘   └──────┬──────┘  │
 │         │                  │                  │          │
 │         └──────────────────┼──────────────────┘          │
 │                            ▼                             │
@@ -356,27 +356,27 @@ jobs:
 ## 11. Build Phases
 
 ### Phase 1 — Foundation (Week 1–2)
-- [x] Repo scaffold: `specdrift/` Python package + `dashboard/` React app
-- [x] `specdrift.yaml` config loader
-- [x] Google Docs API integration + section parser
-- [x] SQLite state store
-- [x] Basic `specdrift sync` CLI command
-- [x] Unit tests for parser
+- [ ] Repo scaffold: `specdrift/` Python package + `dashboard/` React app
+- [ ] `specdrift.yaml` config loader
+- [ ] Google Docs API integration + section parser
+- [ ] SQLite state store
+- [ ] Basic `specdrift sync` CLI command
+- [ ] Unit tests for parser
 
 ### Phase 2 — Integrations (Week 3)
-- [x] Jira REST API integration + story fetcher
-- [x] GitHub API integration + PR fetcher
-- [x] Scope matching (file patterns → PRD sections)
-- [x] Full drift detection engine (all 3 signals)
-- [x] JSON report output
+- [ ] Jira REST API integration + story fetcher
+- [ ] GitHub API integration + PR fetcher
+- [ ] Scope matching (file patterns → PRD sections)
+- [ ] Full drift detection engine (all 3 signals)
+- [ ] JSON report output
 
 ### Phase 3 — Dashboard (Week 4–5)
-- [x] React app scaffold (Vite)
-- [x] PRD tree component (React Flow)
-- [x] Section detail panel
-- [x] Drift feed
-- [x] Colour-coded health indicators
-- [x] GitHub Pages deploy via GitHub Actions
+- [ ] React app scaffold (Vite)
+- [ ] PRD tree component (React Flow)
+- [ ] Section detail panel
+- [ ] Drift feed
+- [ ] Colour-coded health indicators
+- [ ] GitHub Pages deploy via GitHub Actions
 
 ### Phase 4 — Polish + Launch (Week 6)
 - [ ] Slack alert integration
@@ -386,13 +386,6 @@ jobs:
 - [ ] SpecDrift PRD Template (Google Docs + Markdown)
 - [ ] Product Hunt launch post
 - [ ] Post on r/ProductManagement, LinkedIn, PM Slack communities
-
-### Phase 5 — Team workflows + Extensibility (Post-launch)
-- [ ] Settings UI in dashboard (Doc ID / Jira project / GitHub repo / scope modules)
-- [ ] One-click export (PNG/CSV) from dashboard
-- [ ] Slack alert polish (grouping, dedupe, severity routing)
-- [ ] Plugin system for additional trackers (Linear, Asana) and docs (Notion, Confluence)
-- [ ] Multi-PRD support (portfolios / multiple docs)
 
 ---
 
