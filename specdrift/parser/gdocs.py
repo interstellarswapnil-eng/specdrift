@@ -125,7 +125,7 @@ def parse_sections(doc: dict[str, Any]) -> list[Section]:
 
 		style = (paragraph.get("paragraphStyle") or {}).get("namedStyleType")
 		level = _named_style_to_level(style)
-		text = _get_text_from_paragraph(paragraph).replace("\u000b", "").strip()
+		text = _get_text_from_paragraph(paragraph).replace("\u000b", "\n").strip()
 		if not text:
 			continue
 
