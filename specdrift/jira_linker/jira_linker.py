@@ -19,8 +19,14 @@ def _parse_dt(value: str | None) -> datetime | None:
 	# Common Jira format: 2026-03-05T10:20:34.740+0000
 	try:
 		if v.endswith("Z"):
-			return datetime.fromisoformat(v.replace("Z", "+00:00"))
-		return datetime.fromisoformat(v)
+			dt = datetime.fromisoformat(v.replace("Z", "+00:00"))
+		else:
+			dt = datetime.fromisoformat(v)
+
+		# Ensure tz-aware (assume UTC when missing)
+		if dt.tzinfo is None:
+			dt = dt.replace(tzinfo=timezone.utc)
+		return dt
 	except ValueError:
 		pass
 	for fmt in ("%Y-%m-%dT%H:%M:%S.%f%z", "%Y-%m-%dT%H:%M:%S%z"):
