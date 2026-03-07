@@ -159,25 +159,76 @@ def parse_sections(doc: dict[str, Any]) -> list[Section]:
 
 
 def fetch_doc(doc_id: str) -> dict[str, Any]:
-	"""Fetch a Google Doc using a service account credentials JSON.
+	"""Fetch a Google Doc.
 
-	Credentials file path must be provided via GOOGLE_CREDENTIALS_FILE.
+	Supports two auth methods:
+
+	1) Service account (recommended for CI / automation):
+	   - Set GOOGLE_CREDENTIALS_FILE to the service account JSON path.
+
+	2) OAuth 2.0 (installed app flow; good for local/dev):
+	   - Set GOOGLE_OAUTH_CREDENTIALS to the OAuth client secrets JSON path.
+	   - SpecDrift will save the user token to: ~/.config/specdrift/token.json
+	     and auto-refresh it when expired.
 	"""
 	creds_path = os.environ.get("GOOGLE_CREDENTIALS_FILE")
-	if not creds_path:
-		raise GoogleDocsError("GOOGLE_CREDENTIALS_FILE env var is required")
-	if not os.path.exists(creds_path):
-		raise GoogleDocsError(f"GOOGLE_CREDENTIALS_FILE not found: {creds_path}")
+	if creds_path:
+		# Service account path (zero behavior change)
+		if not os.path.exists(creds_path):
+			raise GoogleDocsError(f"GOOGLE_CREDENTIALS_FILE not found: {creds_path}")
 
-	try:
-		from google.oauth2.service_account import Credentials
-		from googleapiclient.discovery import build
-	except Exception as e:  # pragma: no cover
-		raise GoogleDocsError(
-			"Google API dependencies not installed. Install optional deps: pip install 'specdrift[engine]'"
-		) from e
+		try:
+			from google.oauth2.service_account import Credentials
+			from googleapiclient.discovery import build
+		except Exception as e:  # pragma: no cover
+			raise GoogleDocsError(
+				"Google API dependencies not installed. Install optional deps: pip install 'specdrift[engine]'"
+			) from e
 
-	scopes = ["https://www.googleapis.com/auth/documents.readonly"]
-	creds = Credentials.from_service_account_file(creds_path, scopes=scopes)
-	service = build("docs", "v1", credentials=creds)
-	return service.documents().get(documentId=doc_id).execute()
+		scopes = ["https://www.googleapis.com/auth/documents.readonly"]
+		creds = Credentials.from_service_account_file(creds_path, scopes=scopes)
+		service = build("docs", "v1", credentials=creds)
+		return service.documents().get(documentId=doc_id).execute()
+
+	oauth_creds_path = os.environ.get("GOOGLE_OAUTH_CREDENTIALS")
+	if oauth_creds_path:
+		if not os.path.exists(oauth_creds_path):
+			raise GoogleDocsError(f"GOOGLE_OAUTH_CREDENTIALS not found: {oauth_creds_path}")
+
+		try:
+			from google.auth.transport.requests import Request
+			from google.oauth2.credentials import Credentials
+			from googleapiclient.discovery import build
+			from google_auth_oauthlib.flow import InstalledAppFlow
+		except Exception as e:  # pragma: no cover
+			raise GoogleDocsError(
+				"Google OAuth dependencies not installed. Install optional deps: pip install 'specdrift[engine]'"
+			) from e
+
+		scopes = ["https://www.googleapis.com/auth/documents.readonly"]
+
+		token_path = os.path.expanduser("~/.config/specdrift/token.json")
+		token_dir = os.path.dirname(token_path)
+		os.makedirs(token_dir, exist_ok=True)
+
+		creds: Credentials | None = None
+		if os.path.exists(token_path):
+			creds = Credentials.from_authorized_user_file(token_path, scopes=scopes)
+
+		if not creds or not creds.valid:
+			if creds and creds.expired and creds.refresh_token:
+				creds.refresh(Request())
+			else:
+				flow = InstalledAppFlow.from_client_secrets_file(oauth_creds_path, scopes=scopes)
+				creds = flow.run_local_server(port=0)
+
+			with open(token_path, "w", encoding="utf-8") as f:
+				f.write(creds.to_json())
+
+		service = build("docs", "v1", credentials=creds)
+		return service.documents().get(documentId=doc_id).execute()
+
+	raise GoogleDocsError(
+		"Missing Google credentials. Set either GOOGLE_CREDENTIALS_FILE (service account JSON) "
+		"or GOOGLE_OAUTH_CREDENTIALS (OAuth client secrets JSON)."
+	)
